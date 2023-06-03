@@ -1,0 +1,48 @@
+---
+title: "Trabalho da A2"
+author: "Gustavo Tironi e Luis Felipe Marciano"
+date: '2023-06-03'
+output: 
+  html_document:
+    overflow: hidden
+    number_sections: yes
+    highlight: tango
+    theme: cerulean
+    toc: yes
+    toc_float:
+      collapsed: yes
+      smmoth_scroll: no
+  pdf_document:
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE,
+                      fig_width = 8,
+                      fig.height = 4,
+                      fig.align = 'center')
+```
+
+``` {r library, echo = FALSE}
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(ggrepel)
+library(gridExtra)
+library(grid)
+library(knitr)
+```
+
+# Formulação e documentação da ideia
+
+A escolha da base se deu a partir de uma exploração no [**Kaggle**](https://www.kaggle.com/), na qual nos deparamos com a base de dados sobre os [jogadores draftado na NBA](https://www.kaggle.com/datasets/mattop/nba-draft-basketball-player-data-19892021). Definimos então, que essa seria a base utilizada. Analisando a base, vimos que, além de apresentar os jogadores, a posição no qual foram draftados e os times, também haviam as estatísticas de cada jogador ao longo de sua carreira. Conforme pode ser vizualizado abaixo.
+
+```{r}
+base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
+
+kable(head(base_de_dados))
+# head(base_de_dados)
+```
+
+Com isso, surgiu o seguinte questionamento, que veio a se tornar a hipótese a ser respondida com esse trabalho.
