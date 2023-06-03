@@ -42,7 +42,18 @@ A escolha da base se deu a partir de uma exploração no [**Kaggle**](https://ww
 base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
 
 kable(head(base_de_dados))
-# head(base_de_dados)
 ```
 
 Com isso, surgiu o seguinte questionamento, que veio a se tornar a hipótese a ser respondida com esse trabalho.
+
+<center> **A posição em que o jogador foi draftado, tem correlação com o seu desempenho durante a carreira?**</center>
+
+Dessa forma, pretendemos validar ou invalidar a hipótese acima, a partir da visualização dos dados da base escolhida.
+
+Para tal, inicialmente, pensamos em criar quatro gráficos categórico vs quantitativo, onde caso exista alguma correlação os jogadores escolhidos nas primeiras posições, devem ter estatísticas melhores do que aqueles escolhidos nas últimas. Sendo assim, para validar a hipótese, usando como métrica as estatísticas **pontos**, **rebotes**, **assistências** e **minutos jogados**, esperamos que os gráficos se apresentem conforme o rascunho abaixo.
+
+``` {r, echo = FALSE}
+knitr::include_graphics("Peça gráfica - Rascunho.jpg")
+```
+
+# Análise Exploratória da base de dados 
