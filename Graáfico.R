@@ -48,3 +48,22 @@ grafico_minutos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Minutos_Jo
   geom_text_repel(size = 3)
 
 grafico_minutos
+
+#BOXPLOT DA MÉDIA DE ASSITÊNCIAS DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
+grafico_assistencias <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Assistências, group = Rank, label = Jogador)) +
+  geom_boxplot() +
+  geom_smooth(method = "loess", se=TRUE, aes(group=1)) +
+  coord_flip() +
+  geom_text_repel(size = 3)
+
+grafico_assistencias
+
+
+#BOXPLOT DA MÉDIA DE REBOTES DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
+grafico_rebotes <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Rebotes, group = Rank, label = Jogador)) +
+  geom_boxplot() +
+  geom_smooth(method = "loess", se=TRUE, aes(group=1)) +
+  coord_flip() +
+  geom_text_repel(size = 3)
+
+grafico_rebotes
