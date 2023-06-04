@@ -28,3 +28,13 @@ grafico_1 <- ggplot(dados, mapping = aes(group = Rank, x = Rank, y = Pontos)) +
   coord_flip()
 
 grafico_1
+
+
+#BOXPLOT DA MÉDIA DE PONTOS POR JOGO DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
+grafico_pontos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Pontos, group = Rank, label = Jogador)) +
+  geom_boxplot() +
+  geom_smooth(method = "loess", se=TRUE, aes(group=1)) +
+  coord_flip() +
+  geom_text_repel(size = 3)
+
+grafico_pontos
