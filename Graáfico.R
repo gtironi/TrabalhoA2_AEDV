@@ -18,7 +18,7 @@ dados <- df %>% rename("Ano" = "year",
                     "Rebotes" = "total_rebounds",
                     "Assistência" = "assists",
                     "Média_de_Minutos_Jogados" = "average_minutes_played",
-                    "Média_de_Assistências" = "average_minutes_played",
+                    "Média_de_Assistências" = "average_assists",
                     "Média_de_Pontos" = "points_per_game",
                     "Média_de_Rebotes" = "average_total_rebounds")
 
@@ -38,3 +38,13 @@ grafico_pontos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Pontos, gro
   geom_text_repel(size = 3)
 
 grafico_pontos
+
+
+#BOXPLOT DA MÉDIA DE MINUTOS JOGADOS DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
+grafico_minutos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Minutos_Jogados, group = Rank, label = Jogador)) +
+  geom_boxplot() +
+  geom_smooth(method = "loess", se=TRUE, aes(group=1)) +
+  coord_flip() +
+  geom_text_repel(size = 3)
+
+grafico_minutos
