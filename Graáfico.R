@@ -16,10 +16,13 @@ dados <- df %>% rename("Ano" = "year",
                     "Minutos_jogados" = "minutes_played",
                     "Pontos" = "points",
                     "Rebotes" = "total_rebounds",
-                    "Assistência" = "assists")
+                    "Assistência" = "assists",
+                    "Média_de_Minutos_Jogados" = "average_minutes_played",
+                    "Média_de_Assistências" = "average_minutes_played",
+                    "Média_de_Pontos" = "points_per_game",
+                    "Média_de_Rebotes" = "average_total_rebounds")
 
 # ------------------------------------------------------------------------------
-
 grafico_1 <- ggplot(dados, mapping = aes(group = Rank, x = Rank, y = Pontos)) +
   geom_boxplot() +
   coord_flip()
