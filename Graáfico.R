@@ -31,12 +31,12 @@ grafico_1
 
 
 #BOXPLOT DA MÉDIA DE PONTOS POR JOGO DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
-grafico_pontos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Pontos, group = Rank, label = Jogador)) +
+grafico_pontos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Pontos, group = Rank, label = ifelse(Jogador %in% list("Stephen Curry", "Kobe Bryant", "Isaiah Thomas", "Nikola Jokić"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
   coord_flip() +
   geom_text_repel(size = 3) +
-  theme_minimal() +
+  #theme_minimal() +
   scale_x_continuous(breaks = NULL) +
   scale_y_continuous(breaks = NULL)
 
@@ -45,12 +45,12 @@ ggsave("grafico_pontos.png", plot = grafico_pontos)
 
 
 #BOXPLOT DA MÉDIA DE MINUTOS JOGADOS DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
-grafico_minutos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Minutos_Jogados, group = Rank, label = Jogador)) +
+grafico_minutos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Minutos_Jogados, group = Rank, label = ifelse(Jogador %in% list("Anthony Bennett", "Isaiah Thomas"),Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
   coord_flip() +
   geom_text_repel(size = 3) +
-  theme_minimal() +
+  #theme_minimal() +
   scale_x_continuous(breaks = NULL) +
   scale_y_continuous(breaks = NULL)
 
@@ -59,12 +59,12 @@ ggsave("grafico_minutos.png", plot = grafico_minutos)
 
 
 #BOXPLOT DA MÉDIA DE ASSITÊNCIAS DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
-grafico_assistencias <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Assistências, group = Rank, label = Jogador)) +
+grafico_assistencias <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Assistências, group = Rank, label = ifelse(Jogador %in% list("Trae Young", "John Wall", "Nikola Jokić", "Chris Paul"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
   coord_flip() +
   geom_text_repel(size = 3) +
-  theme_minimal() +
+  #theme_minimal() +
   scale_x_continuous(breaks = NULL) +
   scale_y_continuous(breaks = NULL)
 
@@ -72,12 +72,12 @@ grafico_assistencias
 ggsave("grafico_assistencias.png", plot = grafico_assistencias)
 
 #BOXPLOT DA MÉDIA DE REBOTES DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
-grafico_rebotes <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Rebotes, group = Rank, label = Jogador)) +
+grafico_rebotes <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Rebotes, group = Rank, label = ifelse(Jogador %in% list("Andre Drummond", "Nikola Jokić"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
   coord_flip() +
   geom_text_repel(size = 3) +
-  theme_minimal() +
+  #theme_minimal() +
   scale_x_continuous(breaks = NULL) +
   scale_y_continuous(breaks = NULL)
 
