@@ -36,7 +36,7 @@ library(knitr)
 
 # Formulação e documentação da ideia
 
-A escolha da base se deu a partir de uma exploração no [**Kaggle**](https://www.kaggle.com/), na qual nos deparamos com a base de dados sobre os [jogadores draftado na NBA](https://www.kaggle.com/datasets/mattop/nba-draft-basketball-player-data-19892021). Definimos então, que essa seria a base utilizada. Analisando a base, vimos que, além de apresentar os jogadores, a posição no qual foram draftados e os times, também haviam as estatísticas de cada jogador ao longo de sua carreira. Conforme pode ser vizualizado abaixo.
+A escolha da base se deu a partir de uma exploração no [**Kaggle**](https://www.kaggle.com/), na qual nos deparamos com a base de dados sobre os [jogadores draftado na NBA](https://www.kaggle.com/datasets/mattop/nba-draft-basketball-player-data-19892021). Definimos então, que essa seria a base utilizada. Analisando a base, vimos que, além de apresentar os jogadores, a posição no qual foram draftados e os times, também haviam as estatísticas de cada jogador ao longo de sua carreira. Conforme pode ser visualizado abaixo.
 
 ```{r}
 base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
@@ -44,9 +44,17 @@ base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
 kable(head(base_de_dados))
 ```
 
+Antes de partimos para a hipótese, cabe uma explicação sobre o processo de Draft da NBA.
+
+## O que é o Draft da NBA?
+
+O Draft da NBA é o processo em que jogadores amadores são escolhidos por franquias e entram oficialmente na maior liga de basquetebol profissinal do mundo, a NBA. O evento é composto por duas rodadas de 30 escolhas cada, com uma ordem pré-definida. Os times se revezam e cada um seleciona um jogador por rodada. Ou seja, 60 atletas são recrutados. Portanto, há de se imaginar que os primeiros escolhidos do Draft são melhores jogadores e farão melhores performances em sua carreira na liga.
+
 Com isso, surgiu o seguinte questionamento, que veio a se tornar a hipótese a ser respondida com esse trabalho.
 
-<center> **A posição em que o jogador foi draftado, tem correlação com o seu desempenho durante a carreira?**</center>
+## Hipótese
+
+<center> **A posição em que o jogador foi draftado realmente tem correlação com o seu desempenho durante a carreira?**</center>
 
 Dessa forma, pretendemos validar ou invalidar a hipótese acima, a partir da visualização dos dados da base escolhida.
 
