@@ -23,11 +23,11 @@ dados <- df %>% rename("Ano" = "year",
                     "Média_de_Rebotes" = "average_total_rebounds")
 
 # ------------------------------------------------------------------------------
-grafico_1 <- ggplot(dados, mapping = aes(group = Rank, x = Rank, y = Pontos)) +
-  geom_boxplot() +
-  coord_flip()
+#grafico_1 <- ggplot(dados, mapping = aes(group = Rank, x = Rank, y = Pontos)) +
+#  geom_boxplot() +
+#  coord_flip()
 
-grafico_1
+#grafico_1
 
 
 #BOXPLOT DA MÉDIA DE PONTOS POR JOGO DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
@@ -83,3 +83,34 @@ grafico_rebotes <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Rebotes, g
 
 grafico_rebotes
 ggsave("grafico_rebotes.png", plot = grafico_rebotes)
+
+#--------------------------------------------------------------------------------------
+
+# TENTATIVA DE FAZER UM GRÁFICO MOSTRANDO A DIFERENÇA DE ESTATÍTICAS
+# DOS FIRST PICKS COMPARADO COM OS OUTROS
+
+df_by_rank <- dados %>% group_by(Rank) %>% summarize("Média_por_rank_de_pontos" = mean(Média_de_Pontos, na.rm = TRUE),
+                                                  "Média_por_rank_de_assistencias" = mean(Média_de_Assistências, na.rm = TRUE),
+                                                  "Média_por_rank_de_rebotes" = mean(Média_de_Rebotes, na.rm = TRUE),
+                                                  "Média_por_rank_de_minutos_jogados" = mean(Média_de_Minutos_Jogados, na.rm = TRUE))
+
+df_media_sem_1 <- df_by_rank %>% filter(Rank != 1)
+mean(df_media_sem_1$Média_por_rank_de_pontos)
+mean(df_media_sem_1$Média_por_rank_de_assistencias)
+mean(df_media_sem_1$Média_por_rank_de_rebotes)
+mean(df_media_sem_1$Média_por_rank_de_minutos_jogados)
+
+df_media_do_1 <- df_by_rank %>% filter(Rank == 1)
+mean(df_media_do_1$Média_por_rank_de_pontos)
+mean(df_media_do_1$Média_por_rank_de_assistencias)
+mean(df_media_do_1$Média_por_rank_de_rebotes)
+mean(df_media_do_1$Média_por_rank_de_minutos_jogados)
+
+
+ggplot(df_by_rank, mapping = aes(x = Rank, y = Média_por_rank_de_pontos, group = Rank)) + geom_col()
+
+
+
+
+
+
