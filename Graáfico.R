@@ -59,7 +59,7 @@ ggsave("grafico_minutos.png", plot = grafico_minutos)
 
 
 #BOXPLOT DA MÉDIA DE ASSITÊNCIAS DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
-grafico_assistencias <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Assistências, group = Rank, label = ifelse(Jogador %in% list("Trae Young", "John Wall", "Nikola Jokić", "Chris Paul"), Jogador, ""))) +
+grafico_assistencias <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Assistências, group = Rank, label = ifelse(Jogador %in% list("Trae Young", "John Wall", "Nikola Jokić", "Chris Paul", "Isaiah Thomas"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
   coord_flip() +
