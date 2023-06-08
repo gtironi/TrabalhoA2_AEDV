@@ -89,26 +89,14 @@ ggsave("grafico_rebotes.png", plot = grafico_rebotes)
 # TENTATIVA DE FAZER UM GRÁFICO MOSTRANDO A DIFERENÇA DE ESTATÍTICAS
 # DOS FIRST PICKS COMPARADO COM OS OUTROS
 
-df_by_rank <- dados %>% group_by(Rank) %>% summarize("Média_por_rank_de_pontos" = mean(Média_de_Pontos, na.rm = TRUE),
-                                                  "Média_por_rank_de_assistencias" = mean(Média_de_Assistências, na.rm = TRUE),
-                                                  "Média_por_rank_de_rebotes" = mean(Média_de_Rebotes, na.rm = TRUE),
-                                                  "Média_por_rank_de_minutos_jogados" = mean(Média_de_Minutos_Jogados, na.rm = TRUE))
+df_comparacao_ranks <- read.csv("relação_entre_ranks.csv", sep = ",")
 
-df_media_sem_1 <- df_by_rank %>% filter(Rank != 1)
-mean(df_media_sem_1$Média_por_rank_de_pontos)
-mean(df_media_sem_1$Média_por_rank_de_assistencias)
-mean(df_media_sem_1$Média_por_rank_de_rebotes)
-mean(df_media_sem_1$Média_por_rank_de_minutos_jogados)
+grafico_comparacao <- ggplot(df_comparacao_ranks, mapping = aes(group = Rank, x = Rank, y = Média, fill = Rank)) +
+  geom_bar(stat='identity', position = 'dodge') +
+  facet_grid(~Tipo_de_média)
 
-df_media_do_1 <- df_by_rank %>% filter(Rank == 1)
-mean(df_media_do_1$Média_por_rank_de_pontos)
-mean(df_media_do_1$Média_por_rank_de_assistencias)
-mean(df_media_do_1$Média_por_rank_de_rebotes)
-mean(df_media_do_1$Média_por_rank_de_minutos_jogados)
-
-
-ggplot(df_by_rank, mapping = aes(x = Rank, y = Média_por_rank_de_pontos, group = Rank)) + geom_col()
-
+grafico_comparacao
+ggsave("grafico_comparacao.png", plot = grafico_comparacao)
 
 
 
