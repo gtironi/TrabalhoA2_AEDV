@@ -36,7 +36,7 @@ library(knitr)
 
 # Formulação e documentação da ideia
 
-A escolha da base se deu a partir de uma exploração no [**Kaggle**](https://www.kaggle.com/), na qual nos deparamos com a base de dados sobre os [jogadores draftado na NBA](https://www.kaggle.com/datasets/mattop/nba-draft-basketball-player-data-19892021). Definimos então, que essa seria a base utilizada. Analisando a base, vimos que, além de apresentar os jogadores, a posição no qual foram draftados e os times, também haviam as estatísticas de cada jogador ao longo de sua carreira. Conforme pode ser visualizado abaixo.
+A escolha da base se deu a partir de uma exploração no [**Kaggle**](https://www.kaggle.com/), na qual nos deparamos com a base de dados sobre os [jogadores draftado na NBA](https://www.kaggle.com/datasets/mattop/nba-draft-basketball-player-data-19892021). Definimos então, que essa seria a base utilizada. Analisando a base, vimos que, além de apresentar os jogadores, a posição no qual foram draftados e os times, desde 1989, também haviam as estatísticas de cada jogador ao longo de sua carreira. Conforme pode ser visualizado abaixo.
 
 ```{r}
 base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
