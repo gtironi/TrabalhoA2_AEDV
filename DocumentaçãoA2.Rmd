@@ -65,3 +65,28 @@ knitr::include_graphics("Peça gráfica - Rascunho.jpg")
 ```
 
 # Análise Exploratória da base de dados 
+
+Como temos a hipótese a ser respondida em mente, trataremos a princípio apenas as variáveis pertinentes, sendo que, caso venha a se tornar necessário a inclusão de outras variáveis, iremos analisá-las posteriormente.   
+
+Antes de qualquer análise mais aprofundada, devemos entender nossa base de dados. Batendo o olho no arquivo **.cvs**, podemos ver que cada linha representa um jogador e cada coluna uma variável a respeito dele. Assim, podemos começar a tratar as variáveis.
+Para responder à hipótese, precisamos, acima de tudo, conseguir identificar a posição em que o jogador foi escolhido no draft. Para isso, temos as variáveis **rank** e **overall_pick**, que são o mesmo, e tratam exatamente da posição em que o jogador foi draftado. Essas, são variáveis qualitativas ordinais que vão de 1 a 60.   
+
+Tendo a posição definida, precisamos olhar agora para as variáveis que nos ajudarão a definir o desempenho do jogador. Previamente, definimos que as estatísticas **pontos**, **rebotes**, **assistências** e **minutos jogados** seriam as responsáveis por determinar o desempenho. Essa escolha vai conforme a comunidade de basquete, que frequentemente usa essas estatísticas para definir a grandeza de um jogador, principalmente os **pontos**. Contudo, entendendo a diversidade de posições no basquete, não é justo analisar apenas pelos pontos, e sim pelo conjunto da obra, ou seja, **pontos**, **rebotes** e **assistências**. Junto a isso, os **minutos jogados** são de extrema importância, já que um jogador importante para o time, jogará mais minutos em cada partida.   
+
+Analisando o banco de dados, vemos que a coluna **minutes_played** traz os minutos jogados, a coluna **points** traz os pontos totais, a coluna **total_rebounds** traz os rebotes e a coluna **assists** traz as assistências. Todas essas, são variáveis quantitativas discretas.   
+
+Com as variáveis devidamente, definidas, podemos começar a análise exploratória. Inicialmente, iremos aplicar a função **summary** em todas as variáveis, para observar seu comportamento.
+
+```{r}
+base_de_dados_resumida <- select(base_de_dados, points, minutes_played, total_rebounds,assists)
+
+summary(base_de_dados_resumida)
+```
+
+Já pudemos identificar a ocorrência de valores nulos na base. Analisando-a mais profundamente, podemos determinar que os valores nulos correspondem a jogadores que foram draftados, mas que nunca jogaram na NBA. Por isso, podemos desconsiderar esses valores, sem perda de dados significantes.
+
+```{r}
+base_de_dados_resumida <- na.omit(select(base_de_dados, points, minutes_played, total_rebounds,assists))
+
+summary(base_de_dados_resumida)
+```
