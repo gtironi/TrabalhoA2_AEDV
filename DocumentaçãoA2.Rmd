@@ -86,7 +86,9 @@ summary(base_de_dados_resumida)
 Já pudemos identificar a ocorrência de valores nulos na base. Analisando-a mais profundamente, podemos determinar que os valores nulos correspondem a jogadores que foram draftados, mas que nunca jogaram na NBA. Por isso, podemos desconsiderar esses valores, sem perda de dados significantes.
 
 ```{r}
-base_de_dados_resumida <- na.omit(select(base_de_dados, points, minutes_played, total_rebounds,assists))
+base_de_dados_resumida <- na.omit(select(base_de_dados, points, minutes_played, total_rebounds, assists))
 
 summary(base_de_dados_resumida)
 ```
+
+Ainda, para entender a presença de outliers, foi feito um boxplot para cada variável.
