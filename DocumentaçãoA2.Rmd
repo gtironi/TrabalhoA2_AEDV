@@ -91,4 +91,3 @@ base_de_dados_resumida <- na.omit(select(base_de_dados, points, minutes_played, 
 summary(base_de_dados_resumida)
 ```
 
-Ainda, para entender a presença de outliers, foi feito um boxplot para cada variável.
