@@ -36,9 +36,10 @@ dados <- df %>% rename("Ano" = "year",
 grafico_pontos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Pontos, group = Rank, label = ifelse(Jogador %in% list("Stephen Curry", "Kobe Bryant", "Isaiah Thomas", "Nikola Jokić"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
-  geom_text_repel(size = 3) +
   #theme_minimal() +
-  scale_x_reverse(breaks = c(1, 20, 40, 60))
+  scale_x_reverse(breaks = c(1, 20, 40, 60)) +
+  labs(y = "Média de Pontos por Jogo") +
+  theme(axis.title = element_text(size = 22, face = "bold"), axis.line = element_line(size = 1.2), axis.text = element_text(size = 16))
 
 grafico_pontos
 ggsave("grafico_pontos.png", plot = grafico_pontos)
@@ -48,9 +49,10 @@ ggsave("grafico_pontos.png", plot = grafico_pontos)
 grafico_minutos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Minutos_Jogados, group = Rank, label = ifelse(Jogador %in% list("Anthony Bennett", "Isaiah Thomas"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
-  geom_text_repel(size = 3, point.size = 4) +
   #theme_minimal() +
-  scale_x_reverse(breaks = c(1, 20, 40, 60))
+  scale_x_reverse(breaks = c(1, 20, 40, 60)) +
+  labs(y = "Média de  Minutos Jogados por Jogo") +
+  theme(axis.title = element_text(size = 22, face = "bold"), axis.line = element_line(size = 1.2), axis.text = element_text(size = 16))
 
 grafico_minutos
 ggsave("grafico_minutos.png", plot = grafico_minutos)
@@ -60,9 +62,10 @@ ggsave("grafico_minutos.png", plot = grafico_minutos)
 grafico_assistencias <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Assistências, group = Rank, label = ifelse(Jogador %in% list("Trae Young", "John Wall", "Nikola Jokić", "Chris Paul", "Isaiah Thomas"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
-  geom_text_repel(size = 3) +
   #theme_minimal() +
-  scale_x_reverse(breaks = c(1, 20, 40, 60))
+  scale_x_reverse(breaks = c(1, 20, 40, 60)) +
+  labs(y = "Média de Assistências por Jogo") +
+  theme(axis.title = element_text(size = 22, face = "bold"), axis.line = element_line(size = 1.2), axis.text = element_text(size = 16))
 
 grafico_assistencias
 ggsave("grafico_assistencias.png", plot = grafico_assistencias)
@@ -71,9 +74,10 @@ ggsave("grafico_assistencias.png", plot = grafico_assistencias)
 grafico_rebotes <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Rebotes, group = Rank, label = ifelse(Jogador %in% list("Andre Drummond", "Nikola Jokić"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
-  geom_text_repel(size = 3) +
   #theme_minimal() +
-  scale_x_reverse(breaks = c(1, 20, 40, 60))
+  scale_x_reverse(breaks = c(1, 20, 40, 60)) +
+  labs(y = "Média de Rebotes por Jogo") +
+  theme(axis.title = element_text(size = 22, face = "bold"), axis.line = element_line(size = 1.2), axis.text = element_text(size = 16))
 
 grafico_rebotes
 ggsave("grafico_rebotes.png", plot = grafico_rebotes)
