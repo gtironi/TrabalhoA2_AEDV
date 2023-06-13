@@ -8,6 +8,8 @@ theme_update(plot.title = element_text(size = 12, face = "bold"))
 
 df <- read.csv("nbaplayersdraft.csv", sep = ",")
 
+df <- na.omit(df)
+
 dados <- df %>% rename("Ano" = "year",
                     "Rank" = "rank",
                     "Jogador" = "player",
@@ -45,14 +47,12 @@ ggsave("grafico_pontos.png", plot = grafico_pontos)
 
 
 #BOXPLOT DA MÉDIA DE MINUTOS JOGADOS DOS JOGADORES POR RANK COM LINHA DE TENDÊNCIA
-grafico_minutos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Minutos_Jogados, group = Rank, label = ifelse(Jogador %in% list("Anthony Bennett", "Isaiah Thomas"),Jogador, ""))) +
+grafico_minutos <- ggplot(dados, mapping= aes(x = Rank, y = Média_de_Minutos_Jogados, group = Rank, label = ifelse(Jogador %in% list("Anthony Bennett", "Isaiah Thomas"), Jogador, ""))) +
   geom_boxplot(color = "gray50") +
   geom_smooth(method = "loess", se=FALSE, aes(group=1), size = 2, color = "#cf6143") +
-  coord_flip() +
   geom_text_repel(size = 3) +
   #theme_minimal() +
-  scale_x_continuous(breaks = NULL) +
-  scale_y_continuous(breaks = NULL)
+  scale_x_reverse(breaks = c(1, 20, 40, 60))
 
 grafico_minutos
 ggsave("grafico_minutos.png", plot = grafico_minutos)
