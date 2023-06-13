@@ -98,7 +98,35 @@ grafico_comparacao <- ggplot(df_comparacao_ranks, mapping = aes(group = Rank, x 
 grafico_comparacao
 ggsave("grafico_comparacao.png", plot = grafico_comparacao)
 
+#-------------------------------------------------------------------------------------
+# ANÁLISE UNIDIMENSIONAL
 
+# FREQUÊNCIA DOS TIMES
+ggplot(dados, mapping = aes(x= team)) +
+  geom_histogram(stat = "count") +
+  theme(axis.text.x = element_text(angle = 45))
 
+# tem muitos colleges pra fazer histograma de freqûencia
+ggplot(dados, mapping = aes(x= college)) +
+geom_histogram(stat = "count") +
+  theme(axis.text.x = element_text(angle = 45))
 
+#
+ggplot(dados, mapping = aes(y= Média_de_Pontos)) +
+  geom_boxplot()
+mean(dados$Média_de_Pontos, na.rm = TRUE)
 
+ggplot(dados, mapping = aes(y= Média_de_Minutos_Jogados)) +
+  geom_boxplot()
+mean(dados$Média_de_Minutos_Jogados, na.rm = TRUE)
+
+ggplot(dados, mapping = aes(y= Média_de_Rebotes)) +
+  geom_boxplot()
+mean(dados$Média_de_Rebotes, na.rm = TRUE)
+
+ggplot(dados, mapping = aes(y= Média_de_Assistências)) +
+  geom_boxplot()
+mean(dados$Média_de_Assistências, na.rm = TRUE)
+
+ggplot(dados, mapping = aes(x= Rank)) +
+  geom_histogram(stat = "count")
