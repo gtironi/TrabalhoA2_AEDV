@@ -32,6 +32,8 @@ library(ggrepel)
 library(gridExtra)
 library(grid)
 library(knitr)
+library(kableExtra)
+library(DT)
 ```
 
 # Formulação e documentação da ideia
@@ -41,7 +43,13 @@ A escolha da base se deu a partir de uma exploração no [**Kaggle**](https://ww
 ```{r}
 base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
 
-kable(head(base_de_dados))
+kable(head(base_de_dados), "html") %>% kable_styling("striped") %>% scroll_box(width = "100%")
+
+datatable(head(base_de_dados), extensions = 'Scroller', options = list(
+  deferRender = TRUE,
+  scrollY = 200,
+  scroller = TRUE
+))
 ```
 
 Antes de partimos para a hipótese, cabe uma explicação sobre o processo de Draft da NBA.
