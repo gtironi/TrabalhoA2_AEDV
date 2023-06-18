@@ -19,12 +19,12 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE,
                       warning = FALSE,
-                      fig_width = 8,
+                      fig.width = 8,
                       fig.height = 4,
                       fig.align = 'center')
 ```
 
-``` {r library, echo = FALSE}
+```{r library, echo = FALSE}
 library(ggplot2)
 library(plotly)
 library(dplyr)
@@ -44,7 +44,9 @@ base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
 
 kable(head(base_de_dados), "html") %>% kable_styling("striped") %>% scroll_box(width = "100%")
 ```
----
+
+------------------------------------------------------------------------
+
 Antes de partimos para a hipótese, cabe uma explicação sobre o processo de Draft da NBA.
 
 ## O que é o Draft da NBA?
@@ -55,33 +57,32 @@ Com isso, surgiu o seguinte questionamento, que veio a se tornar a hipótese a s
 
 ## Hipótese
 
-<center> **A posição em que o jogador foi draftado realmente tem correlação com o seu desempenho durante a carreira?**</center>
+<center>**A posição em que o jogador foi draftado realmente tem correlação com o seu desempenho durante a carreira?**</center>
 
 Dessa forma, pretendemos validar ou invalidar a hipótese acima, a partir da visualização dos dados da base escolhida.
 
 Para tal, inicialmente, pensamos em criar quatro gráficos categórico vs quantitativo, onde caso exista alguma correlação os jogadores escolhidos nas primeiras posições, devem ter estatísticas melhores do que aqueles escolhidos nas últimas. Sendo assim, para validar a hipótese, usando como métrica as estatísticas **pontos**, **rebotes**, **assistências** e **minutos jogados**, esperamos que os gráficos se apresentem conforme o rascunho abaixo.
 
-``` {r, echo = FALSE}
+```{r, echo = FALSE}
 knitr::include_graphics("Peça gráfica - Rascunho.jpg")
 ```
 
-# Análise Exploratória da base de dados 
+# Análise Exploratória da base de dados
 
-Como temos a hipótese a ser respondida em mente, trataremos a princípio apenas as variáveis pertinentes, sendo que, caso venha a se tornar necessário a inclusão de outras variáveis, iremos analisá-las posteriormente.   
+Como temos a hipótese a ser respondida em mente, trataremos a princípio apenas as variáveis pertinentes, sendo que, caso venha a se tornar necessário a inclusão de outras variáveis, iremos analisá-las posteriormente.
 
-Antes de qualquer análise mais aprofundada, devemos entender nossa base de dados. Batendo o olho no arquivo **.cvs**, podemos ver que cada linha representa um jogador e cada coluna uma variável a respeito dele. Assim, podemos começar a tratar as variáveis.
-Para responder à hipótese, precisamos, acima de tudo, conseguir identificar a posição em que o jogador foi escolhido no draft. Para isso, temos as variáveis **rank** e **overall_pick**, que são o mesmo, e tratam exatamente da posição em que o jogador foi draftado. Essas, são variáveis qualitativas ordinais que vão de 1 a 60.   
+Antes de qualquer análise mais aprofundada, devemos entender nossa base de dados. Batendo o olho no arquivo **.cvs**, podemos ver que cada linha representa um jogador e cada coluna uma variável a respeito dele. Assim, podemos começar a tratar as variáveis. Para responder à hipótese, precisamos, acima de tudo, conseguir identificar a posição em que o jogador foi escolhido no draft. Para isso, temos as variáveis **rank** e **overall_pick**, que são o mesmo, e tratam exatamente da posição em que o jogador foi draftado. Essas, são variáveis qualitativas ordinais que vão de 1 a 60.
 
-Tendo a posição definida, precisamos olhar agora para as variáveis que nos ajudarão a definir o desempenho do jogador. Previamente, definimos que as estatísticas **pontos**, **rebotes**, **assistências** e **minutos jogados** seriam as responsáveis por determinar o desempenho. Essa escolha vai conforme a comunidade de basquete, que frequentemente usa essas estatísticas para definir a grandeza de um jogador, principalmente os **pontos**. Contudo, entendendo a diversidade de posições no basquete, não é justo analisar apenas pelos pontos, e sim pelo conjunto da obra, ou seja, **pontos**, **rebotes** e **assistências**. Junto a isso, os **minutos jogados** são de extrema importância, já que um jogador importante para o time, jogará mais minutos em cada partida.   
+Tendo a posição definida, precisamos olhar agora para as variáveis que nos ajudarão a definir o desempenho do jogador. Previamente, definimos que as estatísticas **pontos**, **rebotes**, **assistências** e **minutos jogados** seriam as responsáveis por determinar o desempenho. Essa escolha vai conforme a comunidade de basquete, que frequentemente usa essas estatísticas para definir a grandeza de um jogador, principalmente os **pontos**. Contudo, entendendo a diversidade de posições no basquete, não é justo analisar apenas pelos pontos, e sim pelo conjunto da obra, ou seja, **pontos**, **rebotes** e **assistências**. Junto a isso, os **minutos jogados** são de extrema importância, já que um jogador importante para o time, jogará mais minutos em cada partida.
 
 ## Anaálise Unidimensional
 
-Analisando o banco de dados, vemos que a coluna **minutes_played** traz os minutos jogados, a coluna **points** traz os pontos totais, a coluna **total_rebounds** traz os rebotes e a coluna **assists** traz as assistências. Todas essas, são variáveis quantitativas discretas.   
+Analisando o banco de dados, vemos que a coluna **minutes_played** traz os minutos jogados, a coluna **points** traz os pontos totais, a coluna **total_rebounds** traz os rebotes e a coluna **assists** traz as assistências. Todas essas, são variáveis quantitativas discretas.
 
 Com as variáveis devidamente, definidas, podemos começar a análise exploratória. Inicialmente, iremos aplicar a função **summary** em todas as variáveis, para observar seu comportamento.
 
 ```{r}
-base_de_dados_resumida <- select(base_de_dados, points, minutes_played, total_rebounds, assists)
+base_de_dados_resumida <- select(base_de_dados, points, minutes_played,total_rebounds, assists)
 
 summary(base_de_dados_resumida)
 ```
@@ -94,7 +95,7 @@ base_de_dados_resumida <- na.omit(select(base_de_dados, points, minutes_played, 
 summary(base_de_dados_resumida)
 ```
 
-Agora, podemos a analisar unidimensional das variáveis que serão utilizadas. 
+Agora, podemos a analisar unidimensional das variáveis que serão utilizadas.
 
 ```{r, echo = FALSE}
 theme_set(theme_classic())
@@ -124,7 +125,7 @@ grid.arrange(p_points, p_minutes,
              ncol=2, nrow=2)
 ```
 
-Com essa análise, já podemos observar algo interessante. Podemos ver que há uma maior ocorrência de todas as variáveis nos valores mais baixos. Analisando a base de dados de forma visual, identificamos como uma possível causa disso, que jogadores que foram draftados em anos mais recentes, como  2020, têm pouco tempo de carreira e, consequentemente, têm menores estatísticas. Para confirmar isso, resolvemos replicar a analise, para a variavel pontos, separando por pelo ano em que o jogador foi draftado.
+Com essa análise, já podemos observar algo interessante. Podemos ver que há uma maior ocorrência de todas as variáveis nos valores mais baixos. Analisando a base de dados de forma visual, identificamos como uma possível causa disso, que jogadores que foram draftados em anos mais recentes, como 2020, têm pouco tempo de carreira e, consequentemente, têm menores estatísticas. Para confirmar isso, resolvemos replicar a analise, para a variavel pontos, separando por pelo ano em que o jogador foi draftado.
 
 ```{r}
 dados_year_points <- na.omit(select(base_de_dados, points, year))
@@ -155,15 +156,14 @@ grid.arrange(p_2021, p_2021,
              ncol=2, nrow=2)
 ```
 
-Aqui, vale destacar que a escala dos eixos estão extremamente diferentes, para melhor visualização e pela dificuldade em programar outra maneira onde as escalas estejam iguais e seja visível. Contudo, para o nosso propósito, esses gráficos irão servir.
-Como podemos observar, nossa suspeita inicial se confirmou, pois nos anos mais recentes (2021 e 2020), a maioria dos dados se concentram abaixo dos **1000** pontos, enquanto os dados de mais antigos (1990 e 2020) se concentram até a região dos **5000** pontos. Isso já é um empecilho para o uso desses dados, pois dessa forma, não poderemos analisar bem a performance dos jogadores, já que jogadores mais antigos serão favorecidos. 
-Para contornar esse problema, precisamos ponderar essas estatísticas pelo tempo jogado. Por sorte, temos na base de dados, todas estatísticas ponderadas por partidas. Então mudaremos o foco, e começaremos a analisar essas estatísticas, recomeçando a análise. Para tal, serão usadas as variáveis ponderadas **points_per_game**, **average_assists**, **average_total_rebounds** e **average_minutes_played**.
+Aqui, vale destacar que a escala dos eixos estão extremamente diferentes, para melhor visualização e pela dificuldade em programar outra maneira onde as escalas estejam iguais e seja visível. Contudo, para o nosso propósito, esses gráficos irão servir. Como podemos observar, nossa suspeita inicial se confirmou, pois nos anos mais recentes (2021 e 2020), a maioria dos dados se concentram abaixo dos **1000** pontos, enquanto os dados de mais antigos (1990 e 2020) se concentram até a região dos **5000** pontos. Isso já é um empecilho para o uso desses dados, pois dessa forma, não poderemos analisar bem a performance dos jogadores, já que jogadores mais antigos serão favorecidos. Para contornar esse problema, precisamos ponderar essas estatísticas pelo tempo jogado. Por sorte, temos na base de dados, todas estatísticas ponderadas por partidas. Então mudaremos o foco, e começaremos a analisar essas estatísticas, recomeçando a análise. Para tal, serão usadas as variáveis ponderadas **points_per_game**, **average_assists**, **average_total_rebounds** e **average_minutes_played**.
 
 ```{r}
 base_de_dados_resumida <- na.omit(select(base_de_dados, points_per_game, average_assists, average_total_rebounds, average_minutes_played, rank))
 
 summary(base_de_dados_resumida)
 ```
+
 Então são plotados os gráficos.
 
 ```{r}
@@ -227,58 +227,70 @@ ggplot(data = base_de_dados_resumida, mapping = aes(x = rank)) +
   labs(x = "Rank", y = "Contagem")
 ```
 
-Com o gráfico, fica evidente que há menos dados de jogadores nas últimas posições do rank, contudo, isso era esperado, já que algumas posições do draft só começaram em anos mais recentes. Além disso, muito dos NA's retirados estavam nessas posições.   
+Com o gráfico, fica evidente que há menos dados de jogadores nas últimas posições do rank, contudo, isso era esperado, já que algumas posições do draft só começaram em anos mais recentes. Além disso, muito dos NA's retirados estavam nessas posições.
 
 Com isso, finalizamos nossa análise unidimensional, e podemos partir para a análise bidimensional.
 
 ## Análises Bidimensionais
 
-Analisando a correlação entre as variáveis escolhidas:
+Para a análise bidimensional, analisaremos a correlação entre as variáveis escolhidas e plotaremos os gráficos bidimensionais. Por se tratarem de variáveis quantitativas, o gráfico utilizado será o de dispersão.
 
-```{r}
+```{r, fig.height=9}
 
 g1 <- ggplot(base_de_dados_resumida, mapping = aes(x = points_per_game, y = average_minutes_played)) +
   geom_point() + geom_smooth(method = "loess") + 
-  labs(x = "Pontos por Jogo", y = "Média de Minutos Jogados", caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_minutes_played)))
+  labs(x = "Pontos por Jogo", 
+       y = "Média de Minutos Jogados", 
+       caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_minutes_played)))
 
 g2 <- ggplot(base_de_dados_resumida, mapping = aes(x = average_assists, y = average_minutes_played)) +
   geom_point() + geom_smooth(method = "loess") + 
-  labs(x = "Média de assistências", y = "Média de Minutos Jogados", caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$average_assists, base_de_dados_resumida$average_minutes_played)))
+  labs(x = "Média de assistências", 
+       y = "Média de Minutos Jogados", 
+       caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$average_assists, base_de_dados_resumida$average_minutes_played)))
 
 g3 <- ggplot(base_de_dados_resumida, mapping = aes(x = average_total_rebounds, y = average_minutes_played)) +
   geom_point() + geom_smooth(method = "loess") + 
-  labs(x = "Média de Rebotes", y = "Média de Minutos Jogados", caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$average_total_rebounds, base_de_dados_resumida$average_minutes_played)))
-
-grid.arrange(g1, g2, g3, ncol = 2)
-```
-  
-```{r}
+  labs(x = "Média de Rebotes", 
+       y = "Média de Minutos Jogados", 
+       caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$average_total_rebounds, base_de_dados_resumida$average_minutes_played)))
 
 g4 <- ggplot(base_de_dados_resumida, mapping = aes(x = points_per_game, y = average_assists)) +
   geom_point() + geom_smooth(method = "loess") + 
-  labs(x = "Pontos por Jogo", y = "Média de assistências", caption = sprintf("Correlação = %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_assists)))
+  labs(x = "Pontos por Jogo", 
+       y = "Média de assistências", 
+       caption = sprintf("Correlação = %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_assists)))
 
 
 g5 <- ggplot(base_de_dados_resumida, mapping = aes(x = points_per_game, y = average_total_rebounds)) +
   geom_point() + geom_smooth(method = "loess") + 
-  labs(x = "Pontos por Jogo", y = "Média de Rebotes", caption =sprintf("Correlação = %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_total_rebounds)))
+  labs(x = "Pontos por Jogo", 
+       y = "Média de Rebotes", 
+       caption =sprintf("Correlação = %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_total_rebounds)))
 
-grid.arrange(g4, g5, ncol=2)
-
-
+grid.arrange(g1, g2, g4, g3, g5, ncol = 2, nrow = 3)
 ```
 
+Com isso, podemos ver que há uma grande correlação entre **média de pontos** e **minutos jogados**. As outras variáveis também mostraram certo grau de correlação, mas não como as já citadas. Com essa análise, pode-se identificar que há uma relação entre a **média de pontos** com as outras variáveis e entre os **minutos jogados** e as outras variáveis.
 
+# Pensamento Editorial
 
-## Pensamento Editorial
+Antes de partirmos para a produção peça gráfica e das visualizações, devemos planejar alguns tópicos do pensamento editorial a respeito da peça gráfica, tais como: a definição de um público alvo, definição da qualidade expressiva da peça e da solução de representação do dado.
 
-Antes de partirmos para a produção peça gráfica e das visualizações, devemos planejar alguns tópicos do pensamento editorial a respeito da peça gráfica, tais como: a definição de um público alvo, definição da qualidade expressiva da peça e da solução de repesentação do dado.
-
-A respeito do público alvo, a peça não é direcionada para o público geral, pois não há um compromisso em fazer gráficos de amplo conhecimento pela maioria das pessoas, mas sim fazer gráficos que melhor representem os dados. Porém, não é somente esse fator que limita o público, mas também o interesse pelo esporte. Portanto, o publico alvo pode ser definido como apreciadores de basquete com algum conheciemnto de estatítica.
+A respeito do público alvo, a peça não é direcionada para o público geral, pois não há um compromisso em fazer gráficos de amplo conhecimento pela maioria das pessoas, mas sim fazer gráficos que melhor representem os dados. Porém, não é somente esse fator que limita o público, mas também o interesse pelo esporte. Portanto, o público alvo pode ser definido como apreciadores de basquete com algum conhecimento de estatística.
 
 A qualidade expressiva do gráfico é neutra, pois não é nosso propósito impactar o leitor com uma representação dramática.
 
-A escolha de representação do gráfico é a que é melhor indicada para gráficos Categórico X Quantitativo, que é o boxplot. Porém, como o objetivo do gráfico é mostrar um comportamento, a informação mais importante não são os boxplots, mas sim a linha de tendência que passa por eles. Portanto, deve-se colorir com cores temática de basquete o que é mais importante, como a linha de tendência, e deixar em uma cor mais opaca outras informações que servem como contexto, a fim de não confundir a compreensão do leitor.
+A escolha de representação do gráfico é a que é melhor indicada para gráficos categóricos X quantitativo, o boxplot. Porém, como o objetivo do gráfico é mostrar um comportamento, a informação mais importante não são os boxplots, mas sim a linha de tendência que passa por eles. Portanto, deve-se colorir com cores temática de basquete o que é mais importante, como a linha de tendência, e deixar em uma cor mais opaca outras informações que servem como contexto, a fim de não confundir a compreensão do leitor.
 
+Finalmente, as ferramentas escolhidas para a realização da peça gráfica foram: ggplot, para execução dos gráficos; dplyr, para manipulação de dados; canvas, para design e algumas outras bibliotecas do R para execução do markdown e auxílio na criação dos gráficos.
 
+# Produção da peça gráfica
 
+Com tudo apresentado até agora, foi possível, então, executar a peça gráfica desejada. O resultado, pode ser visualizado abaixo.
+
+```{r}
+knitr::include_graphics("Posição no Draft e desempenho.jpg")
+```
+
+Com o trabalho finalizado, gostaríamos de acrescentar que a realização dessa atividade foi de extrema importância para aprimorar nossas habilidades com ggplot e R. Muitas funcionalidades usadas tiveram que ser aprendidas para que o resultado fosse como desejado. Com isso, pudemos aprender mais a pesquisar diretamente na documentação, além de ser engenhoso em alguns momentos para fazer dar certo rs.
