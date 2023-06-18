@@ -231,6 +231,54 @@ Com o gráfico, fica evidente que há menos dados de jogadores nas últimas posi
 
 Com isso, finalizamos nossa análise unidimensional, e podemos partir para a análise bidimensional.
 
+## Análises Bidimensionais
+
+Analisando a correlação entre as variáveis escolhidas:
+
+```{r}
+
+g1 <- ggplot(base_de_dados_resumida, mapping = aes(x = points_per_game, y = average_minutes_played)) +
+  geom_point() + geom_smooth(method = "loess") + 
+  labs(x = "Pontos por Jogo", y = "Média de Minutos Jogados", caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_minutes_played)))
+
+g2 <- ggplot(base_de_dados_resumida, mapping = aes(x = average_assists, y = average_minutes_played)) +
+  geom_point() + geom_smooth(method = "loess") + 
+  labs(x = "Média de assistências", y = "Média de Minutos Jogados", caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$average_assists, base_de_dados_resumida$average_minutes_played)))
+
+g3 <- ggplot(base_de_dados_resumida, mapping = aes(x = average_total_rebounds, y = average_minutes_played)) +
+  geom_point() + geom_smooth(method = "loess") + 
+  labs(x = "Média de Rebotes", y = "Média de Minutos Jogados", caption =sprintf("Correlação: %s", cor(base_de_dados_resumida$average_total_rebounds, base_de_dados_resumida$average_minutes_played)))
+
+grid.arrange(g1, g2, g3, ncol = 2)
+```
+  
+```{r}
+
+g4 <- ggplot(base_de_dados_resumida, mapping = aes(x = points_per_game, y = average_assists)) +
+  geom_point() + geom_smooth(method = "loess") + 
+  labs(x = "Pontos por Jogo", y = "Média de assistências", caption = sprintf("Correlação = %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_assists)))
+
+
+g5 <- ggplot(base_de_dados_resumida, mapping = aes(x = points_per_game, y = average_total_rebounds)) +
+  geom_point() + geom_smooth(method = "loess") + 
+  labs(x = "Pontos por Jogo", y = "Média de Rebotes", caption =sprintf("Correlação = %s", cor(base_de_dados_resumida$points_per_game, base_de_dados_resumida$average_total_rebounds)))
+
+grid.arrange(g4, g5, ncol=2)
+
+
+```
+
+
+
+## Pensamento Editorial
+
+Antes de partirmos para a produção peça gráfica e das visualizações, devemos planejar alguns tópicos do pensamento editorial a respeito da peça gráfica, tais como: a definição de um público alvo, definição da qualidade expressiva da peça e da solução de repesentação do dado.
+
+A respeito do público alvo, a peça não é direcionada para o público geral, pois não há um compromisso em fazer gráficos de amplo conhecimento pela maioria das pessoas, mas sim fazer gráficos que melhor representem os dados. Porém, não é somente esse fator que limita o público, mas também o interesse pelo esporte. Portanto, o publico alvo pode ser definido como apreciadores de basquete com algum conheciemnto de estatítica.
+
+A qualidade expressiva do gráfico é neutra, pois não é nosso propósito impactar o leitor com uma representação dramática.
+
+A escolha de representação do gráfico é a que é melhor indicada para gráficos Categórico X Quantitativo, que é o boxplot. Porém, como o objetivo do gráfico é mostrar um comportamento, a informação mais importante não são os boxplots, mas sim a linha de tendência que passa por eles. Portanto, deve-se colorir com cores temática de basquete o que é mais importante, como a linha de tendência, e deixar em uma cor mais opaca outras informações que servem como contexto, a fim de não confundir a compreensão do leitor.
 
 
 
