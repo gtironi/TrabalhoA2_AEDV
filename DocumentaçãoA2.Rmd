@@ -33,7 +33,6 @@ library(gridExtra)
 library(grid)
 library(knitr)
 library(kableExtra)
-library(DT)
 ```
 
 # Formulação e documentação da ideia
@@ -45,7 +44,7 @@ base_de_dados <- read.csv("nbaplayersdraft.csv", sep = ",")
 
 kable(head(base_de_dados), "html") %>% kable_styling("striped") %>% scroll_box(width = "100%")
 ```
-
+---
 Antes de partimos para a hipótese, cabe uma explicação sobre o processo de Draft da NBA.
 
 ## O que é o Draft da NBA?
@@ -74,6 +73,8 @@ Antes de qualquer análise mais aprofundada, devemos entender nossa base de dado
 Para responder à hipótese, precisamos, acima de tudo, conseguir identificar a posição em que o jogador foi escolhido no draft. Para isso, temos as variáveis **rank** e **overall_pick**, que são o mesmo, e tratam exatamente da posição em que o jogador foi draftado. Essas, são variáveis qualitativas ordinais que vão de 1 a 60.   
 
 Tendo a posição definida, precisamos olhar agora para as variáveis que nos ajudarão a definir o desempenho do jogador. Previamente, definimos que as estatísticas **pontos**, **rebotes**, **assistências** e **minutos jogados** seriam as responsáveis por determinar o desempenho. Essa escolha vai conforme a comunidade de basquete, que frequentemente usa essas estatísticas para definir a grandeza de um jogador, principalmente os **pontos**. Contudo, entendendo a diversidade de posições no basquete, não é justo analisar apenas pelos pontos, e sim pelo conjunto da obra, ou seja, **pontos**, **rebotes** e **assistências**. Junto a isso, os **minutos jogados** são de extrema importância, já que um jogador importante para o time, jogará mais minutos em cada partida.   
+
+## Anaálise Unidimensional
 
 Analisando o banco de dados, vemos que a coluna **minutes_played** traz os minutos jogados, a coluna **points** traz os pontos totais, a coluna **total_rebounds** traz os rebotes e a coluna **assists** traz as assistências. Todas essas, são variáveis quantitativas discretas.   
 
@@ -138,7 +139,7 @@ p_2021 <- ggplot(data = dados_2021, mapping = aes(x = points)) +
   labs(x = "Pontos", y = "Contagem", title = "2021")
 
 p_2020 <- ggplot(data = dados_2020, mapping = aes(x = points)) +
-  geom_histogram(breaks = seq(0, 20000, 10)) +
+  geom_histogram() +
   labs(x = "Pontos", y = "Contagem", title = "2020")
 
 p_1990 <- ggplot(data = dados_1990, mapping = aes(x = points)) +
@@ -159,7 +160,7 @@ Como podemos observar, nossa suspeita inicial se confirmou, pois nos anos mais r
 Para contornar esse problema, precisamos ponderar essas estatísticas pelo tempo jogado. Por sorte, temos na base de dados, todas estatísticas ponderadas por partidas. Então mudaremos o foco, e começaremos a analisar essas estatísticas, recomeçando a análise. Para tal, serão usadas as variáveis ponderadas **points_per_game**, **average_assists**, **average_total_rebounds** e **average_minutes_played**.
 
 ```{r}
-base_de_dados_resumida <- na.omit(select(base_de_dados, points_per_game, average_assists, average_total_rebounds, average_minutes_played))
+base_de_dados_resumida <- na.omit(select(base_de_dados, points_per_game, average_assists, average_total_rebounds, average_minutes_played, rank))
 
 summary(base_de_dados_resumida)
 ```
@@ -202,7 +203,7 @@ p_2021 <- ggplot(data = dados_2021, mapping = aes(x = points_per_game)) +
   labs(x = "Pontos por Jogo", y = "Contagem", title = "2021")
 
 p_2020 <- ggplot(data = dados_2020, mapping = aes(x = points_per_game)) +
-  geom_histogram(breaks = seq(0, 20000, 10)) +
+  geom_histogram() +
   labs(x = "Pontos por Jogo", y = "Contagem", title = "2020")
 
 p_1990 <- ggplot(data = dados_1990, mapping = aes(x = points_per_game)) +
@@ -218,4 +219,18 @@ grid.arrange(p_2021, p_2021,
              ncol=2, nrow=2)
 ```
 
-Novamente se confirma a distribuição mais igualitária dos dados, indicando que essas variáveis são mais eficazes para determinação do desempenho dos jogadores.
+Novamente se confirma a distribuição mais igualitária dos dados, indicando que essas variáveis são mais eficazes para determinação do desempenho dos jogadores. Por fim, resolvemos analisar a variável **Rank**, que também será utilizada.
+
+```{r}
+ggplot(data = base_de_dados_resumida, mapping = aes(x = rank)) +
+  geom_histogram(stat = "count") +
+  labs(x = "Rank", y = "Contagem")
+```
+
+Com o gráfico, fica evidente que há menos dados de jogadores nas últimas posições do rank, contudo, isso era esperado, já que algumas posições do draft só começaram em anos mais recentes. Além disso, muito dos NA's retirados estavam nessas posições.   
+
+Com isso, finalizamos nossa análise unidimensional, e podemos partir para a análise bidimensional.
+
+
+
+
